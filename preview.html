@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Face To Face Marketing — Standalone Preview</title>
+  <!-- External CSS Stylesheet -->
+  <link rel="stylesheet" href="preview.css">
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function Navbar({ page, setPage }) {
+      return (
+        <header className="navbar">
+          <div className="nav-container">
+            <span className="brand-logo" onClick={() => setPage('home')}>Face To Face Marketing</span>
+            <nav>
+              <ul className="nav-links">
+                <li><button className={page === 'home' ? 'active' : ''} onClick={() => setPage('home')}>Home</button></li>
+                <li><button className={page === 'about' ? 'active' : ''} onClick={() => setPage('about')}>About</button></li>
+                <li><button className={page === 'services' ? 'active' : ''} onClick={() => setPage('services')}>Services</button></li>
+                <li><button className={page === 'contact' ? 'active' : ''} onClick={() => setPage('contact')}>Contact & Booking</button></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+      );
+    }
+
+    function Footer() {
+      return (
+        <footer className="footer">
+          <div className="footer-container">
+            <div className="footer-info">
+              <p><strong>Face To Face Marketing LLC</strong></p>
+              <p>📍 Physical Address: 515 Sparkman Drive, Huntsville, AL 35816</p>
+              <p>✉️ Email: <a href="mailto:hello@facetoface-marketing.com">hello@facetoface-marketing.com</a></p>
+            </div>
+            <div className="social-links">
+              <span>Follow Us:</span>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon">LinkedIn</a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-icon">Facebook</a>
+            </div>
+          </div>
+        </footer>
+      );
+    }
+
+    function AIChatWidget() {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <React.Fragment>
+          {isOpen && (
+            <div className="ai-chat-modal">
+              <div className="ai-chat-modal-header">
+                <strong>🤖 AI Sales Assistant</strong>
+                <button className="close-btn" onClick={() => setIsOpen(false)}>&times;</button>
+              </div>
+              <p style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '0.5rem' }}>
+                Hello! How can I assist you with your marketing goals today?
+              </p>
+              <div style={{ padding: '0.5rem', backgroundColor: '#f1f5f9', borderRadius: '4px', fontSize: '0.8rem', color: '#94a3b8', textAlign: 'center' }}>
+                [AI Chat Widget — UI Placeholder]
+              </div>
+            </div>
+          )}
+          <button className="ai-chat-button" onClick={() => setIsOpen(!isOpen)}>💬 AI Assistant</button>
+        </React.Fragment>
+      );
+    }
+
+    function Home({ setPage }) {
+      return (
+        <div>
+          <section className="hero">
+            <h1>Face To Face Marketing</h1>
+            <p>We create high-impact marketing and communication strategies tailored to help your business reach corporate sales and growth goals.</p>
+            <button className="btn" onClick={() => setPage('contact')}>Book a Consultation</button>
+          </section>
+          <section style={{ marginTop: '2rem' }}>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', textAlign: 'center' }}>Our Approach Sets Us Apart</h2>
+            <div className="grid">
+              <div className="card">
+                <h3>Tailored Consultation</h3>
+                <p>Custom plans built specifically for your business model and target audience purchase decisions.</p>
+              </div>
+              <div className="card">
+                <h3>48-Hour Response Policy</h3>
+                <p>Every client gets direct access to their specialist with guaranteed 48-hour turnarounds on requests.</p>
+              </div>
+              <div className="card">
+                <h3>Research Driven Strategy</h3>
+                <p>Data-backed marketing collateral, website builds, and social media campaigns designed to generate ROI.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      );
+    }
+
+    function About() {
+      return (
+        <div>
+          <h1 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--primary)' }}>About Us</h1>
+          <section className="card" style={{ marginBottom: '2rem' }}>
+            <h2 style={{ fontSize: '1.35rem', marginBottom: '0.75rem' }}>Leadership & Background</h2>
+            <p style={{ marginBottom: '1rem' }}>Face To Face Marketing is owned and operated by Vicki Morris, a recognized leader in the Huntsville small business and entrepreneurial ecosystem.</p>
+            <p>Leveraging a background that combines a degree in marketing with engineering experience, Vicki brings technical precision and strategic clarity to every communication and marketing blueprint.</p>
+          </section>
+          <section className="card">
+            <h2 style={{ fontSize: '1.35rem', marginBottom: '0.75rem' }}>Mission Statement</h2>
+            <p style={{ marginBottom: '1rem' }}>Our mission at Face To Face Marketing is to create highly effective marketing and communication strategies that empower our clients to achieve their corporate sales and growth goals.</p>
+            <p>Through innovative approaches and tailored solutions, we position our clients as industry leaders while driving sustainable success and measurable ROI in today's competitive marketplace.</p>
+          </section>
+        </div>
+      );
+    }
+
+    function Services() {
+      const servicesList = [
+        { title: 'Website Services', description: 'Custom website design and development tailored to client needs across modern frameworks, CMS platforms, and custom builds.' },
+        { title: 'Content Creation', description: 'Engaging, persuasive copywriting and verbiage designed to resonate directly with your ideal target buyers.' },
+        { title: 'Social Media Management', description: 'End-to-end B2B and B2C social media strategies, including graphics creation, copy generation, and content scheduling.' },
+        { title: 'Marketing Collateral', description: 'Professional design of physical and digital assets including flyers, brochures, rack cards, roll-up banners, and business cards.' },
+        { title: 'Corporate Training', description: 'Guided workshops and course series covering marketing systems, social media strategy, and brand development.' },
+        { title: 'Fractional CMO Consulting', description: 'Executive-level strategic marketing leadership for scaling businesses requiring part-time high-level strategy (12-36 month roadmaps).' }
+      ];
+      return (
+        <div>
+          <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: 'var(--primary)' }}>Our Services</h1>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '1.5rem' }}>Comprehensive marketing and communication solutions tailored for business growth.</p>
+          <div className="grid">
+            {servicesList.map((service, idx) => (
+              <div className="card" key={idx}>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function ContactBooking() {
+      const [formData, setFormData] = useState({
+        fullName: '',
+        email: '',
+        countryCode: '+1',
+        phone: '',
+        resume: null
+      });
+
+      const [errors, setErrors] = useState({});
+      const [isSubmitted, setIsSubmitted] = useState(false);
+
+      const countryCodes = [
+        { code: '+1', label: 'United States / Canada (+1)' },
+        { code: '+977', label: 'Nepal (+977)' },
+        { code: '+44', label: 'United Kingdom (+44)' },
+        { code: '+91', label: 'India (+91)' },
+        { code: '+61', label: 'Australia (+61)' },
+        { code: '+49', label: 'Germany (+49)' },
+        { code: '+33', label: 'France (+33)' },
+        { code: '+81', label: 'Japan (+81)' },
+        { code: '+86', label: 'China (+86)' },
+        { code: '+971', label: 'UAE (+971)' }
+      ];
+
+      const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+        if (errors[name]) {
+          setErrors(prev => ({ ...prev, [name]: null }));
+        }
+      };
+
+      const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const allowedExtensions = ['pdf', 'doc', 'docx'];
+          const fileExtension = file.name.split('.').pop().toLowerCase();
+          
+          if (!allowedExtensions.includes(fileExtension)) {
+            setErrors(prev => ({ ...prev, resume: 'Only .pdf, .doc, and .docx files are allowed.' }));
+            setFormData(prev => ({ ...prev, resume: null }));
+            e.target.value = '';
+            return;
+          }
+
+          const maxSizeInBytes = 5 * 1024 * 1024;
+          if (file.size > maxSizeInBytes) {
+            setErrors(prev => ({ ...prev, resume: 'File size exceeds 5MB limit.' }));
+            setFormData(prev => ({ ...prev, resume: null }));
+            e.target.value = '';
+            return;
+          }
+
+          setFormData(prev => ({ ...prev, resume: file }));
+          setErrors(prev => ({ ...prev, resume: null }));
+        }
+      };
+
+      const validate = () => {
+        const newErrors = {};
+        if (!formData.fullName.trim()) newErrors.fullName = 'Full Name is required.';
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!formData.email.trim()) {
+          newErrors.email = 'Email Address is required.';
+        } else if (!emailRegex.test(formData.email.trim())) {
+          newErrors.email = 'Please enter a valid email address.';
+        }
+
+        const phoneClean = formData.phone.replace(/\s+/g, '');
+        const phoneNumericRegex = /^\d{7,15}$/;
+        if (!phoneClean) {
+          newErrors.phone = 'Phone Number is required.';
+        } else if (!phoneNumericRegex.test(phoneClean)) {
+          newErrors.phone = 'Please enter numbers only (7 to 15 digits).';
+        }
+
+        if (!formData.resume) {
+          newErrors.resume = 'Please attach your resume (.pdf, .doc, or .docx).';
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+      };
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        if (validate()) {
+          console.log('=== Contact & Booking Form Submission ===');
+          console.log('1. Full Name:', formData.fullName);
+          console.log('2. Email Address:', formData.email);
+          console.log('3. Phone Number:', `${formData.countryCode} ${formData.phone}`);
+          console.log('4. Resume File Name:', formData.resume.name);
+          console.log('   Resume File Size:', `${(formData.resume.size / (1024 * 1024)).toFixed(2)} MB`);
+          console.log('   Resume File Type:', formData.resume.type || 'N/A');
+          console.log('Timestamp:', new Date().toISOString());
+
+          setIsSubmitted(true);
+          setTimeout(() => {
+            setIsSubmitted(false);
+            setFormData({
+              fullName: '', email: '', countryCode: '+1', phone: '', resume: null
+            });
+          }, 5000);
+        }
+      };
+
+      return (
+        <div style={{ maxWidth: '650px', margin: '0 auto' }}>
+          <h1 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: 'var(--primary)' }}>
+            Contact & Booking
+          </h1>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '2rem' }}>
+            Please complete the form below and attach your resume to get in touch with our team.
+          </p>
+
+          <div className="card">
+            {isSubmitted && (
+              <div style={{ padding: '1rem', backgroundColor: '#dcfce7', color: '#166534', border: '1px solid #bbf7d0', borderRadius: '6px', marginBottom: '1.5rem' }}>
+                ✅ <strong>Form Submitted Successfully!</strong> Check the browser console to view the logged form data.
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} noValidate>
+              {/* Field 1: Full Name */}
+              <div className="form-group">
+                <label htmlFor="fullName">Full Name <span style={{ color: '#dc2626' }}>*</span></label>
+                <input type="text" id="fullName" name="fullName" value={formData.fullName} onChange={handleInputChange} placeholder="John Doe" style={{ borderColor: errors.fullName ? '#dc2626' : undefined }} />
+                {errors.fullName && <span style={{ color: '#dc2626', fontSize: '0.85rem', marginTop: '0.25rem', display: 'block' }}>{errors.fullName}</span>}
+              </div>
+
+              {/* Field 2: Email Address */}
+              <div className="form-group">
+                <label htmlFor="email">Email Address <span style={{ color: '#dc2626' }}>*</span></label>
+                <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="john@example.com" style={{ borderColor: errors.email ? '#dc2626' : undefined }} />
+                {errors.email && <span style={{ color: '#dc2626', fontSize: '0.85rem', marginTop: '0.25rem', display: 'block' }}>{errors.email}</span>}
+              </div>
+
+              {/* Field 3: Phone Number with Country Selector */}
+              <div className="form-group">
+                <label htmlFor="phone">Phone Number <span style={{ color: '#dc2626' }}>*</span></label>
+                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <select id="countryCode" name="countryCode" value={formData.countryCode} onChange={handleInputChange} style={{ width: '140px', padding: '0.65rem 0.5rem', border: '1px solid var(--border)', borderRadius: '6px', fontSize: '0.95rem', backgroundColor: '#ffffff' }}>
+                    {countryCodes.map(item => (
+                      <option key={item.code} value={item.code}>{item.code} ({item.label.split(' ')[0]})</option>
+                    ))}
+                  </select>
+                  <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="9801234567" style={{ flex: 1, borderColor: errors.phone ? '#dc2626' : undefined }} />
+                </div>
+                {errors.phone && <span style={{ color: '#dc2626', fontSize: '0.85rem', marginTop: '0.25rem', display: 'block' }}>{errors.phone}</span>}
+              </div>
+
+              {/* Field 4: Resume Attachment Upload */}
+              <div className="form-group">
+                <label htmlFor="resume">Resume Attachment <span style={{ color: '#dc2626' }}>*</span></label>
+                <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" onChange={handleFileChange} style={{ padding: '0.5rem', border: '1px solid var(--border)', borderRadius: '6px', width: '100%', backgroundColor: '#ffffff', borderColor: errors.resume ? '#dc2626' : undefined }} />
+                {formData.resume && (
+                  <div style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: 'var(--accent)', fontWeight: '500' }}>
+                    📄 Selected File: {formData.resume.name} ({(formData.resume.size / 1024).toFixed(1)} KB)
+                  </div>
+                )}
+                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.25rem', display: 'block' }}>
+                  Accepted formats: .pdf, .doc, .docx (Max size: 5MB)
+                </span>
+                {errors.resume && <span style={{ color: '#dc2626', fontSize: '0.85rem', marginTop: '0.25rem', display: 'block' }}>{errors.resume}</span>}
+              </div>
+
+              {/* Field 5: Submit Button */}
+              <button type="submit" className="btn" style={{ width: '100%', marginTop: '1rem' }}>
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      );
+    }
+
+    function App() {
+      const [page, setPage] = useState('home');
+
+      return (
+        <div id="root">
+          <Navbar page={page} setPage={setPage} />
+          <main className="main-content">
+            {page === 'home' && <Home setPage={setPage} />}
+            {page === 'about' && <About />}
+            {page === 'services' && <Services />}
+            {page === 'contact' && <ContactBooking />}
+          </main>
+          <Footer />
+          <AIChatWidget />
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

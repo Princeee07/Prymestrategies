@@ -1,83 +1,126 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
-import { NAV_LINKS } from '@/lib/constants';
-import Button from '@/components/ui/Button';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const isHome = pathname === '/';
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Careers', href: '/careers' },
+    { name: 'Contact', href: '/contact' },
+  ];
+
+  const bgColor =
+    isScrolled || !isHome ? 'bg-white shadow-lg' : 'bg-transparent';
+  const textColor =
+    isHome && !isScrolled ? 'text-white' : 'text-[var(--color-charcoal)]';
 
   return (
-    <header className="sticky top-0 z-50 bg-gray-950/80 backdrop-blur-xl border-b border-gray-800/50">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <header
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${bgColor}`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-24">
           {/* Logo */}
-          <Link href="/" className="text-xl font-bold text-white">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-fuchsia-500">
-              Pryme
+          <Link href="/" className="flex-shrink-0 flex items-center">
+            <span
+              className={`font-heading font-light tracking-[0.2em] uppercase text-xl ${textColor}`}
+            >
+              PRYME{' '}
+              <span className="text-[var(--color-bronze)]">STRATEGIES</span>
             </span>
-            Strategies
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.filter((l) => l.label !== 'Book Now').map((link) => (
+          <nav className="hidden md:flex space-x-8 items-center">
+            {navLinks.map((link) => (
               <Link
-                key={link.href}
+                key={link.name}
                 href={link.href}
-                className={`text-sm font-medium transition-colors ${
+                className={`text-sm font-heading tracking-widest uppercase transition-colors hover:text-[var(--color-bronze)] ${
                   pathname === link.href
-                    ? 'text-white'
-                    : 'text-gray-400 hover:text-white'
+                    ? 'text-[var(--color-bronze)]'
+                    : textColor
                 }`}
               >
-                {link.label}
+                {link.name}
               </Link>
             ))}
-            <Link href="/booking">
-              <Button size="sm">Book Now</Button>
+            <Link
+              href="/apply"
+              className="px-6 py-3 bg-[var(--color-bronze)] text-white font-heading tracking-widest uppercase text-sm hover:bg-[var(--color-bronze-light)] transition-colors"
+            >
+              Apply Now
             </Link>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={`${textColor} hover:text-[var(--color-bronze)]`}
+            >
+              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
           </div>
-
-          {/* Mobile Toggle */}
-          <button
-            className="md:hidden text-gray-400 hover:text-white"
-            onClick={() => setIsMobileOpen(!isMobileOpen)}
-          >
-            {isMobileOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
         </div>
+      </div>
 
-        {/* Mobile Nav */}
-        {isMobileOpen && (
-          <div className="md:hidden py-4 border-t border-gray-800">
-            <div className="flex flex-col gap-3">
-              {NAV_LINKS.map((link) => (
+      {/* Mobile Nav */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden bg-white border-t border-gray-100 absolute w-full left-0 shadow-lg"
+          >
+            <div className="px-2 pt-2 pb-6 space-y-1 sm:px-3">
+              {navLinks.map((link) => (
                 <Link
-                  key={link.href}
+                  key={link.name}
                   href={link.href}
-                  onClick={() => setIsMobileOpen(false)}
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`block px-3 py-4 text-sm font-heading tracking-widest uppercase border-b border-gray-100 ${
                     pathname === link.href
-                      ? 'text-white bg-gray-800'
-                      : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+                      ? 'text-[var(--color-bronze)]'
+                      : 'text-[var(--color-charcoal)]'
                   }`}
                 >
-                  {link.label}
+                  {link.name}
                 </Link>
               ))}
+              <div className="pt-4 px-3">
+                <Link
+                  href="/apply"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block w-full text-center px-6 py-3 bg-[var(--color-bronze)] text-white font-heading tracking-widest uppercase text-sm hover:bg-[var(--color-bronze-light)] transition-colors"
+                >
+                  Apply Now
+                </Link>
+              </div>
             </div>
-          </div>
+          </motion.div>
         )}
-      </nav>
+      </AnimatePresence>
     </header>
   );
 }

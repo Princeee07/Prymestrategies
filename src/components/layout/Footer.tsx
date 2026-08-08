@@ -1,54 +1,116 @@
 import Link from 'next/link';
-import { NAV_LINKS, SITE_NAME } from '@/lib/constants';
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-950 border-t border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand */}
-          <div>
-            <h3 className="text-xl font-bold text-white mb-3">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-fuchsia-500">
-                Pryme
+    <footer className="bg-[var(--color-charcoal)] text-gray-300 pt-16 pb-8 border-t border-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div className="col-span-1 md:col-span-2">
+            <Link href="/" className="inline-block mb-6">
+              <span className="font-heading font-light tracking-[0.2em] uppercase text-xl text-white">
+                PRYME{' '}
+                <span className="text-[var(--color-bronze)]">STRATEGIES</span>
               </span>
-              Strategies
-            </h3>
-            <p className="text-gray-400 text-sm">
-              Premium face-to-face marketing solutions that drive real results
-              for your business.
+            </Link>
+            <p className="max-w-md text-sm leading-relaxed">
+              We build meaningful brand connections through direct, personal
+              engagement. Our face-to-face marketing strategies deliver
+              ROI-driven results while helping our team members become better
+              people through marketing.
             </p>
           </div>
 
-          {/* Links */}
           <div>
-            <h4 className="text-white font-semibold mb-3">Quick Links</h4>
-            <ul className="space-y-2">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-gray-400 hover:text-white text-sm transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            <h3 className="text-white font-heading tracking-widest uppercase text-sm mb-6">
+              Quick Links
+            </h3>
+            <ul className="space-y-4 text-sm">
+              <li>
+                <Link
+                  href="/"
+                  className="hover:text-[var(--color-bronze)] transition-colors"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/about"
+                  className="hover:text-[var(--color-bronze)] transition-colors"
+                >
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/careers"
+                  className="hover:text-[var(--color-bronze)] transition-colors"
+                >
+                  Careers
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/apply"
+                  className="hover:text-[var(--color-bronze)] transition-colors"
+                >
+                  Apply Now
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="hover:text-[var(--color-bronze)] transition-colors"
+                >
+                  Contact
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Contact */}
           <div>
-            <h4 className="text-white font-semibold mb-3">Contact</h4>
-            <ul className="space-y-2 text-sm text-gray-400">
-              <li>info@prymestrategies.com</li>
-              <li>+1 (555) 123-4567</li>
+            <h3 className="text-white font-heading tracking-widest uppercase text-sm mb-6">
+              Contact
+            </h3>
+            <ul className="space-y-4 text-sm">
+              <li>Huntsville, AL</li>
+              <li>
+                <a
+                  href="mailto:info@prymestrategies.com"
+                  className="hover:text-[var(--color-bronze)] transition-colors"
+                >
+                  info@prymestrategies.com
+                </a>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
-          &copy; {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
+        <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs">
+          <p>
+            &copy; {new Date().getFullYear()} PRYME Strategies. All rights
+            reserved.
+          </p>
+          <div className="flex space-x-6 mt-4 md:mt-0">
+            <a
+              href="#"
+              className="hover:text-[var(--color-bronze)] transition-colors font-heading tracking-widest uppercase"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="#"
+              className="hover:text-[var(--color-bronze)] transition-colors font-heading tracking-widest uppercase"
+            >
+              Instagram
+            </a>
+            <a
+              href="#"
+              className="hover:text-[var(--color-bronze)] transition-colors font-heading tracking-widest uppercase"
+            >
+              Facebook
+            </a>
+          </div>
         </div>
       </div>
     </footer>

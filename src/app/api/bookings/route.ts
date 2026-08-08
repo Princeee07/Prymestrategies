@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
 import { bookingSchema } from '@/lib/validations';
-
-const prisma = new PrismaClient();
+import { db as prisma } from '@/server/db';
 
 // POST create a new booking
 export async function POST(request: NextRequest) {

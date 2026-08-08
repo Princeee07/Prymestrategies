@@ -15,7 +15,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,css,json}\"",
     "type-check": "tsc --noEmit",
-    "postinstall": "husky",
+    "postinstall": "prisma generate",
     "prepare": "husky",
     "postbuild": "next-sitemap"
   },

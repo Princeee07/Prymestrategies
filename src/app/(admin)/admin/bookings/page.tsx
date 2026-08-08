@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import { createClient } from '@/lib/supabase/server';
+import { getSession } from '@/lib/auth';
 import Sidebar from '@/components/layout/Sidebar';
 import BookingsTable from '@/components/admin/BookingsTable';
 import type { Metadata } from 'next';
@@ -10,12 +10,9 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminBookingsPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const session = await getSession();
 
-  if (!user) {
+  if (!session) {
     redirect('/admin/login');
   }
 

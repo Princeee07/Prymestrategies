@@ -31,3 +31,21 @@ model Application {
   created_at DateTime @default(now()) @db.Timestamptz(6)
   updated_at DateTime @default(now()) @updatedAt @db.Timestamptz(6)
 }
+
+// ── Bookings ─────────────────────────────────────────────────
+// Service bookings submitted via the front-end
+model Booking {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name       String
+  email      String
+  phone      String
+  date       String
+  time       String
+  service    String
+  message    String?
+  status     String   @default("pending") // pending | confirmed | cancelled | completed
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @updatedAt @db.Timestamptz(6)
+  
+  @@map("bookings")
+}

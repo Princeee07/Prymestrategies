@@ -1,38 +1,51 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
-import { createClient } from '@/lib/supabase/client';
+import { useEffect, useState, useReducer } from 'react';
 import type { Booking } from '@/types';
 
 export function useBookings() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const supabase = createClient();
-
-  const fetchBookings = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-
-    const { data, error: fetchError } = await supabase
-      .from('bookings')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (fetchError) {
-      setError(fetchError.message);
-    } else {
-      setBookings(data as Booking[]);
-    }
-
-    setIsLoading(false);
-  }, [supabase]);
+  const [refetchCount, triggerRefetch] = useReducer((c: number) => c + 1, 0);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    fetchBookings();
-  }, [fetchBookings]);
+    let cancelled = false;
+    const controller = new AbortController();
 
-  return { bookings, isLoading, error, refetch: fetchBookings };
+    async function loadBookings() {
+      setIsLoading(true);
+      setError(null);
+      try {
+        const res = await fetch('/api/admin/bookings', {
+          signal: controller.signal,
+        });
+        if (cancelled) return;
+        if (res.ok) {
+          const data = await res.json();
+          setBookings(data.bookings as Booking[]);
+        } else {
+          const errData = await res.json();
+          setError(errData.error || 'Failed to fetch bookings');
+        }
+      } catch (err: unknown) {
+        if (!cancelled) {
+          setError(err instanceof Error ? err.message : 'Network error');
+        }
+      } finally {
+        if (!cancelled) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    loadBookings();
+
+    return () => {
+      cancelled = true;
+      controller.abort();
+    };
+  }, [refetchCount]);
+
+  return { bookings, isLoading, error, refetch: triggerRefetch };
 }

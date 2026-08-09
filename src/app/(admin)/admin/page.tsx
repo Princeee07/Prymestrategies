@@ -1,6 +1,6 @@
 import { db } from '@/server/db';
 import Link from 'next/link';
-import { ArrowRight, FileText, CheckCircle, Clock, Users } from 'lucide-react';
+import { ArrowRight, FileText } from 'lucide-react';
 
 export default async function AdminDashboard() {
   const applications = await db.application.findMany({
@@ -8,9 +8,6 @@ export default async function AdminDashboard() {
   });
 
   const total = applications.length;
-  const pending = applications.filter((a) => a.status === 'pending').length;
-  const interview = applications.filter((a) => a.status === 'interview').length;
-  const hired = applications.filter((a) => a.status === 'hired').length;
   const recent = applications.slice(0, 5);
 
   return (
@@ -35,42 +32,6 @@ export default async function AdminDashboard() {
           </div>
           <div className="text-3xl font-bold text-slate-900 dark:text-white">
             {total}
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-          <div className="flex items-center justify-between pb-4">
-            <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">
-              Pending Review
-            </h3>
-            <Clock className="w-5 h-5 text-amber-500" />
-          </div>
-          <div className="text-3xl font-bold text-slate-900 dark:text-white">
-            {pending}
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-          <div className="flex items-center justify-between pb-4">
-            <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">
-              In Interview
-            </h3>
-            <Users className="w-5 h-5 text-purple-500" />
-          </div>
-          <div className="text-3xl font-bold text-slate-900 dark:text-white">
-            {interview}
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-          <div className="flex items-center justify-between pb-4">
-            <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">
-              Hired
-            </h3>
-            <CheckCircle className="w-5 h-5 text-green-500" />
-          </div>
-          <div className="text-3xl font-bold text-slate-900 dark:text-white">
-            {hired}
           </div>
         </div>
       </div>

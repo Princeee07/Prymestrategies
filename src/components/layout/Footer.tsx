@@ -27,7 +27,7 @@ export default function Footer() {
             <ul className="space-y-4 text-sm">
               <li>
                 <Link
-                  href="/"
+                  href="/#home"
                   className="hover:text-[var(--color-bronze)] transition-colors"
                 >
                   Home
@@ -35,7 +35,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/about"
+                  href="/#about"
                   className="hover:text-[var(--color-bronze)] transition-colors"
                 >
                   About Us
@@ -43,23 +43,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/careers"
-                  className="hover:text-[var(--color-bronze)] transition-colors"
-                >
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/apply"
-                  className="hover:text-[var(--color-bronze)] transition-colors"
-                >
-                  Apply Now
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
+                  href="/#contact"
                   className="hover:text-[var(--color-bronze)] transition-colors"
                 >
                   Contact
@@ -73,15 +57,16 @@ export default function Footer() {
               Contact
             </h3>
             <ul className="space-y-4 text-sm">
-              <li>Huntsville, AL</li>
+              <li>midtown Manhattan</li>
               <li>
                 <a
-                  href="mailto:info@prymestrategies.com"
+                  href="mailto:prymesteategiesinc@gmail.com"
                   className="hover:text-[var(--color-bronze)] transition-colors"
                 >
-                  info@prymestrategies.com
+                  prymesteategiesinc@gmail.com
                 </a>
               </li>
+              <li>+1 (607) 413-9352</li>
             </ul>
           </div>
         </div>

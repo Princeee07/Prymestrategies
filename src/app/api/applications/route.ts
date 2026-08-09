@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import cloudinary from '@/lib/cloudinary';
 import { db } from '@/server/db';
-
+import fs from 'fs';
+import path from 'path';
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
@@ -25,29 +25,41 @@ export async function POST(request: Request) {
       );
     }
 
-    // Convert file to buffer, then base64, upload as raw
+    // Convert file to buffer
     const bytes = await resume.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Upload to Cloudinary
-    const uploadResult = await cloudinary.uploader.upload(
-      `data:application/pdf;base64,${buffer.toString('base64')}`,
-      { folder: 'pryme-resumes', resource_type: 'raw' }
+    // Save locally
+    const fileName = `${Date.now()}-${resume.name.replace(/\s+/g, '-')}`;
+    const filePath = path.join(
+      process.cwd(),
+      'public',
+      'uploads',
+      'resumes',
+      fileName
     );
 
+    // Ensure directory exists
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
+    fs.writeFileSync(filePath, buffer);
+    const resumeUrl = `/uploads/resumes/${fileName}`;
+
     // Save to database
-    // Assuming a generic application table. If not, this can be customized.
     await db.application.create({
       data: {
         firstName,
         lastName,
         phone,
         email,
-        resumeUrl: uploadResult.secure_url,
+        resumeUrl,
       },
     });
 
-    return NextResponse.json({ success: true, url: uploadResult.secure_url });
+    return NextResponse.json({ success: true, url: resumeUrl });
   } catch (error) {
     console.error('Application submission error:', error);
     return NextResponse.json(

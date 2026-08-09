@@ -22,10 +22,12 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Careers', href: '/careers' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Home', href: '/#home' },
+    { name: 'About', href: '/#about' },
+    { name: 'Mission', href: '/#mission' },
+    { name: 'Approach', href: '/#approach' },
+    { name: 'Services', href: '/#services' },
+    { name: 'Careers', href: '/#careers' },
   ];
 
   const bgColor =
@@ -40,7 +42,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-24">
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0 flex items-center">
+          <Link href="/#home" className="flex-shrink-0 flex items-center">
             <span
               className={`font-heading font-light tracking-[0.2em] uppercase text-xl ${textColor}`}
             >
@@ -50,25 +52,21 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex space-x-8 items-center">
+          <nav className="hidden md:flex space-x-6 items-center">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className={`text-sm font-heading tracking-widest uppercase transition-colors hover:text-[var(--color-bronze)] ${
-                  pathname === link.href
-                    ? 'text-[var(--color-bronze)]'
-                    : textColor
-                }`}
+                className={`text-sm font-heading tracking-widest uppercase transition-colors hover:text-[var(--color-bronze)] ${textColor}`}
               >
                 {link.name}
               </Link>
             ))}
             <Link
-              href="/apply"
+              href="/#contact"
               className="px-6 py-3 bg-[var(--color-bronze)] text-white font-heading tracking-widest uppercase text-sm hover:bg-[var(--color-bronze-light)] transition-colors"
             >
-              Apply Now
+              Contact Us
             </Link>
           </nav>
 
@@ -100,7 +98,7 @@ export default function Navbar() {
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`block px-3 py-4 text-sm font-heading tracking-widest uppercase border-b border-gray-100 ${
-                    pathname === link.href
+                    pathname === link.href && link.href === '/#home'
                       ? 'text-[var(--color-bronze)]'
                       : 'text-[var(--color-charcoal)]'
                   }`}
@@ -110,11 +108,11 @@ export default function Navbar() {
               ))}
               <div className="pt-4 px-3">
                 <Link
-                  href="/apply"
+                  href="/#contact"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="block w-full text-center px-6 py-3 bg-[var(--color-bronze)] text-white font-heading tracking-widest uppercase text-sm hover:bg-[var(--color-bronze-light)] transition-colors"
                 >
-                  Apply Now
+                  Contact Us
                 </Link>
               </div>
             </div>

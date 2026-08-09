@@ -10,7 +10,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: 'PRYME Strategies | Face-to-Face Marketing',
+  title: 'PRYME Strategies',
   description:
     'We build meaningful brand connections through direct, personal engagement.',
 };

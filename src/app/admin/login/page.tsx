@@ -54,27 +54,33 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-          PRYME Strategies
+    <div className="min-h-screen bg-[var(--color-charcoal)] flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Background Effect */}
+      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+        <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-[var(--color-bronze)] blur-[120px]" />
+        <div className="absolute -bottom-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-white blur-[120px]" />
+      </div>
+
+      <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
+        <h2 className="mt-6 text-center text-3xl font-heading font-light tracking-[0.2em] uppercase text-white">
+          PRYME <span className="text-[var(--color-bronze)]">STRATEGIES</span>
         </h2>
-        <p className="mt-2 text-center text-sm text-slate-400">
+        <p className="mt-4 text-center text-sm font-serif italic text-gray-300">
           Admin Portal Login
         </p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-slate-900 py-8 px-4 shadow sm:rounded-lg sm:px-10 border border-slate-800">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
+        <div className="bg-white/5 backdrop-blur-md py-8 px-4 shadow-2xl sm:rounded-2xl sm:px-10 border border-white/10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-slate-300"
+                className="block text-sm font-medium text-gray-300"
               >
                 Email address
               </label>
-              <div className="mt-1">
+              <div className="mt-2">
                 <input
                   id="email"
                   name="email"
@@ -83,7 +89,7 @@ export default function AdminLoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-slate-700 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-slate-800 text-white"
+                  className="appearance-none block w-full px-4 py-3 border border-white/10 rounded-lg shadow-sm placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-[var(--color-bronze)] focus:border-[var(--color-bronze)] sm:text-sm bg-white/5 text-white transition-colors"
                 />
               </div>
             </div>
@@ -91,11 +97,11 @@ export default function AdminLoginPage() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-slate-300"
+                className="block text-sm font-medium text-gray-300"
               >
                 Password
               </label>
-              <div className="mt-1">
+              <div className="mt-2">
                 <input
                   id="password"
                   name="password"
@@ -104,13 +110,13 @@ export default function AdminLoginPage() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-slate-700 rounded-md shadow-sm placeholder-slate-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm bg-slate-800 text-white"
+                  className="appearance-none block w-full px-4 py-3 border border-white/10 rounded-lg shadow-sm placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-[var(--color-bronze)] focus:border-[var(--color-bronze)] sm:text-sm bg-white/5 text-white transition-colors"
                 />
               </div>
             </div>
 
             {error && (
-              <div className="text-red-500 text-sm font-medium bg-red-500/10 p-3 rounded-md border border-red-500/20">
+              <div className="text-red-400 text-sm font-medium bg-red-500/10 p-4 rounded-lg border border-red-500/20 text-center flex items-center justify-center">
                 {error}
               </div>
             )}
@@ -119,12 +125,15 @@ export default function AdminLoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex justify-center items-center py-4 px-4 border border-transparent rounded-lg shadow-sm text-sm font-heading tracking-widest uppercase text-white bg-[var(--color-bronze)] hover:bg-[var(--color-bronze-light)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-bronze)] focus:ring-offset-[var(--color-charcoal)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                    Authenticating...
+                  </>
                 ) : (
-                  'Sign in'
+                  'Sign In'
                 )}
               </button>
             </div>

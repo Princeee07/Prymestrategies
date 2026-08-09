@@ -4,13 +4,6 @@ import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import Link from 'next/link';
 
 export default function CareersSection() {
-  const skills = [
-    'Direct Communication & Sales Negotiation',
-    'Campaign Management & Market Execution',
-    'Team Leadership & Professional Mentorship',
-    'Operations & Business Development',
-  ];
-
   return (
     <section
       id="careers"
@@ -28,7 +21,7 @@ export default function CareersSection() {
           <div className="w-full lg:w-1/2">
             <ScrollReveal>
               <h2 className="text-3xl md:text-5xl font-heading font-light tracking-[0.2em] uppercase text-white mb-6 drop-shadow-xl">
-                CAREERS
+                CAREER OPPORTUNITIES
               </h2>
               <h3 className="text-xl md:text-2xl font-serif text-[var(--color-bronze)] mb-8 italic drop-shadow-lg">
                 Where Performance Creates Opportunity.
@@ -37,39 +30,30 @@ export default function CareersSection() {
             <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
               <ScrollReveal delay={0.2}>
                 <p>
-                  At PRYME STRATEGIES, we believe career progression should be
-                  earned, not awarded based on seniority. We provide ambitious
-                  individuals with the platform, training, and experience needed
-                  to build a long-term business career.
+                  At PRYME STRATEGIES, we provide ambitious and disciplined
+                  individuals with the opportunity to learn, develop, and grow
+                  through hands-on experience.
                 </p>
               </ScrollReveal>
 
               <ScrollReveal delay={0.3}>
                 <p>
-                  Our hands-on performance model provides skill development in:
+                  Our performance-based development path allows team members to
+                  build valuable skills in sales, communication, business
+                  development, and leadership, with opportunities to advance
+                  into management.
                 </p>
-                <ul className="mt-4 space-y-3">
-                  {skills.map((skill, idx) => (
-                    <li
-                      key={idx}
-                      className="flex items-center text-[var(--color-bronze)]"
-                    >
-                      <span className="mr-3 text-2xl font-bold">&bull;</span>
-                      <span className="text-gray-300">{skill}</span>
-                    </li>
-                  ))}
-                </ul>
               </ScrollReveal>
 
               <ScrollReveal delay={0.4}>
-                <p className="mt-4">
-                  As you advance within our organization, opportunities scale
-                  accordingly—including expanded management roles, professional
-                  mentorship, and domestic and international industry trips.
+                <p>
+                  As you grow within the organization, so do the
+                  opportunities—including greater leadership responsibilities,
+                  professional development, and domestic and international
+                  business trips.
                 </p>
                 <p className="font-bold text-white mt-4 italic">
-                  Bring the ambition. Build the discipline. Earn the
-                  opportunity.
+                  Build Your Skills. Prove Your Potential. Lead Your Future.
                 </p>
               </ScrollReveal>
 
@@ -78,7 +62,7 @@ export default function CareersSection() {
                   href="/#contact"
                   className="inline-block mt-8 bg-[var(--color-bronze)] text-white uppercase font-heading tracking-widest text-sm px-8 py-4 hover:bg-[var(--color-bronze-light)] transition-colors"
                 >
-                  Apply Now
+                  APPLY NOW
                 </Link>
               </ScrollReveal>
             </div>

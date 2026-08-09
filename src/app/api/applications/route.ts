@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
-import cloudinary from '@/lib/cloudinary';
 import { db } from '@/server/db';
-
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
@@ -25,29 +23,23 @@ export async function POST(request: Request) {
       );
     }
 
-    // Convert file to buffer, then base64, upload as raw
+    // Convert file to base64
     const bytes = await resume.arrayBuffer();
     const buffer = Buffer.from(bytes);
-
-    // Upload to Cloudinary
-    const uploadResult = await cloudinary.uploader.upload(
-      `data:application/pdf;base64,${buffer.toString('base64')}`,
-      { folder: 'pryme-resumes', resource_type: 'raw' }
-    );
+    const base64Resume = buffer.toString('base64');
 
     // Save to database
-    // Assuming a generic application table. If not, this can be customized.
     await db.application.create({
       data: {
         firstName,
         lastName,
         phone,
         email,
-        resumeUrl: uploadResult.secure_url,
+        resumeUrl: base64Resume, // Store base64 in resumeUrl field
       },
     });
 
-    return NextResponse.json({ success: true, url: uploadResult.secure_url });
+    return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Application submission error:', error);
     return NextResponse.json(

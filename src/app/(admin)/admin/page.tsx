@@ -1,6 +1,6 @@
 import { db } from '@/server/db';
 import Link from 'next/link';
-import { ArrowRight, FileText, CheckCircle, Clock, Users } from 'lucide-react';
+import { ArrowRight, FileText } from 'lucide-react';
 
 export default async function AdminDashboard() {
   const applications = await db.application.findMany({
@@ -8,29 +8,7 @@ export default async function AdminDashboard() {
   });
 
   const total = applications.length;
-  const pending = applications.filter((a) => a.status === 'pending').length;
-  const interview = applications.filter((a) => a.status === 'interview').length;
-  const hired = applications.filter((a) => a.status === 'hired').length;
   const recent = applications.slice(0, 5);
-
-  const getStatusBadge = (status: string) => {
-    const styles: Record<string, string> = {
-      pending:
-        'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 border-amber-200 dark:border-amber-800',
-      reviewed:
-        'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 border-blue-200 dark:border-blue-800',
-      interview:
-        'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400 border-purple-200 dark:border-purple-800',
-      rejected:
-        'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 border-red-200 dark:border-red-800',
-      hired:
-        'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-800',
-    };
-    return (
-      styles[status] ||
-      'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300 border-slate-200 dark:border-slate-700'
-    );
-  };
 
   return (
     <div className="space-y-6">
@@ -56,42 +34,6 @@ export default async function AdminDashboard() {
             {total}
           </div>
         </div>
-
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-          <div className="flex items-center justify-between pb-4">
-            <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">
-              Pending Review
-            </h3>
-            <Clock className="w-5 h-5 text-amber-500" />
-          </div>
-          <div className="text-3xl font-bold text-slate-900 dark:text-white">
-            {pending}
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-          <div className="flex items-center justify-between pb-4">
-            <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">
-              In Interview
-            </h3>
-            <Users className="w-5 h-5 text-purple-500" />
-          </div>
-          <div className="text-3xl font-bold text-slate-900 dark:text-white">
-            {interview}
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-          <div className="flex items-center justify-between pb-4">
-            <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400">
-              Hired
-            </h3>
-            <CheckCircle className="w-5 h-5 text-green-500" />
-          </div>
-          <div className="text-3xl font-bold text-slate-900 dark:text-white">
-            {hired}
-          </div>
-        </div>
       </div>
 
       {/* Recent Applications */}
@@ -102,7 +44,7 @@ export default async function AdminDashboard() {
           </h2>
           <Link
             href="/admin/applications"
-            className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+            className="text-sm text-[var(--color-bronze)] hover:text-[var(--color-bronze-light)] hover:underline flex items-center gap-1 font-heading tracking-widest uppercase transition-colors"
           >
             View all <ArrowRight className="w-4 h-4" />
           </Link>
@@ -128,11 +70,12 @@ export default async function AdminDashboard() {
                   </p>
                 </div>
                 <div>
-                  <span
-                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getStatusBadge(app.status)}`}
+                  <Link
+                    href="/admin/applications"
+                    className="text-sm font-heading tracking-widest uppercase text-[var(--color-bronze)] hover:text-[var(--color-bronze-light)] border border-[var(--color-bronze)] px-3 py-1.5 rounded-md hover:bg-[var(--color-bronze)] hover:text-white transition-all flex items-center gap-2"
                   >
-                    {app.status.charAt(0).toUpperCase() + app.status.slice(1)}
-                  </span>
+                    View Details
+                  </Link>
                 </div>
               </div>
             ))

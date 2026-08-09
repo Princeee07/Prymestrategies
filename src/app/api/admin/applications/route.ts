@@ -11,6 +11,15 @@ export async function GET() {
     }
 
     const applications = await db.application.findMany({
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        phone: true,
+        email: true,
+        status: true,
+        created_at: true,
+      },
       orderBy: {
         created_at: 'desc',
       },

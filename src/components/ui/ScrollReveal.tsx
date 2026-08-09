@@ -24,17 +24,17 @@ export function ScrollReveal({
   const getVariants = () => {
     switch (direction) {
       case 'up':
-        return { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } };
+        return { hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } };
       case 'down':
         return {
-          hidden: { opacity: 0, y: -40 },
+          hidden: { opacity: 0, y: -30 },
           visible: { opacity: 1, y: 0 },
         };
       case 'left':
-        return { hidden: { opacity: 0, x: 40 }, visible: { opacity: 1, x: 0 } };
+        return { hidden: { opacity: 0, x: 30 }, visible: { opacity: 1, x: 0 } };
       case 'right':
         return {
-          hidden: { opacity: 0, x: -40 },
+          hidden: { opacity: 0, x: -30 },
           visible: { opacity: 1, x: 0 },
         };
       case 'none':
@@ -48,7 +48,11 @@ export function ScrollReveal({
       variants={getVariants()}
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
-      transition={{ duration, delay, ease: 'easeOut' }}
+      transition={{
+        duration: duration || 0.4,
+        delay,
+        ease: [0.22, 1, 0.36, 1] as const,
+      }}
       className={className}
     >
       {children}

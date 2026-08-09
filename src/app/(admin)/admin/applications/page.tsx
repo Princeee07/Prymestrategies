@@ -1,7 +1,14 @@
 'use client';
 
 import { useState, useEffect, useReducer } from 'react';
-import { ExternalLink, Search, Loader2 } from 'lucide-react';
+import {
+  ExternalLink,
+  Search,
+  Loader2,
+  Phone,
+  Mail,
+  Clock,
+} from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 type Application = {
@@ -10,7 +17,6 @@ type Application = {
   lastName: string;
   email: string;
   phone: string;
-  resumeUrl: string;
   status: string;
   created_at: string;
 };
@@ -19,7 +25,6 @@ export default function ApplicationsPage() {
   const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [updating, setUpdating] = useState<string | null>(null);
   const [refetchCount] = useReducer((c: number) => c + 1, 0);
   const router = useRouter();
 
@@ -58,205 +63,112 @@ export default function ApplicationsPage() {
     };
   }, [router, refetchCount]);
 
-  const handleStatusChange = async (id: string, newStatus: string) => {
-    setUpdating(id);
-    try {
-      const res = await fetch(`/api/admin/applications/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      if (res.ok) {
-        setApplications((apps) =>
-          apps.map((app) =>
-            app.id === id ? { ...app, status: newStatus } : app
-          )
-        );
-      }
-    } catch (error) {
-      console.error('Failed to update status', error);
-    } finally {
-      setUpdating(null);
-    }
-  };
-
   const filteredApps = applications.filter((app) => {
     const searchLower = search.toLowerCase();
     return (
       app.firstName.toLowerCase().includes(searchLower) ||
       app.lastName.toLowerCase().includes(searchLower) ||
-      app.email.toLowerCase().includes(searchLower) ||
-      app.status.toLowerCase().includes(searchLower)
+      app.email.toLowerCase().includes(searchLower)
     );
   });
 
-  const getStatusBadge = (status: string) => {
-    const styles: Record<string, string> = {
-      pending:
-        'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 border-amber-200 dark:border-amber-800',
-      reviewed:
-        'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400 border-blue-200 dark:border-blue-800',
-      interview:
-        'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400 border-purple-200 dark:border-purple-800',
-      rejected:
-        'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 border-red-200 dark:border-red-800',
-      hired:
-        'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-800',
-    };
-    return (
-      styles[status] ||
-      'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300 border-slate-200 dark:border-slate-700'
-    );
-  };
-
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 h-full flex flex-col">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-            Applications
+          <h1 className="text-3xl font-heading font-light tracking-[0.1em] text-[var(--color-charcoal)] uppercase mb-2">
+            Applicants
           </h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-1">
-            Manage all submitted applications
+          <p className="text-gray-500 font-sans text-sm">
+            View details and contact your candidates.
           </p>
         </div>
 
-        <div className="relative">
+        <div className="relative min-w-[300px]">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search className="h-4 w-4 text-slate-400" />
+            <Search className="h-4 w-4 text-gray-400" />
           </div>
           <input
             type="text"
-            placeholder="Search applications..."
+            placeholder="Search candidates..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="block w-full pl-10 pr-3 py-2 border border-slate-300 dark:border-slate-700 rounded-md leading-5 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="block w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--color-bronze)] focus:border-transparent transition-all shadow-sm"
           />
         </div>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 shadow-sm rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-slate-200 dark:divide-slate-800">
-            <thead className="bg-slate-50 dark:bg-slate-800/50">
-              <tr>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider"
-                >
-                  Applicant
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider"
-                >
-                  Contact
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider"
-                >
-                  Date Applied
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider"
-                >
-                  Status
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-right text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider"
-                >
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white dark:bg-slate-900 divide-y divide-slate-200 dark:divide-slate-800">
-              {loading ? (
-                <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center">
-                    <Loader2 className="w-8 h-8 animate-spin text-slate-400 mx-auto" />
-                    <p className="mt-2 text-slate-500">
-                      Loading applications...
-                    </p>
-                  </td>
-                </tr>
-              ) : filteredApps.length === 0 ? (
-                <tr>
-                  <td
-                    colSpan={5}
-                    className="px-6 py-12 text-center text-slate-500 dark:text-slate-400"
-                  >
-                    No applications found.
-                  </td>
-                </tr>
-              ) : (
-                filteredApps.map((app) => (
-                  <tr
-                    key={app.id}
-                    className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
-                  >
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-slate-900 dark:text-white">
-                        {app.firstName} {app.lastName}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-slate-900 dark:text-slate-300">
-                        {app.email}
-                      </div>
-                      <div className="text-sm text-slate-500 dark:text-slate-500">
-                        {app.phone}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 dark:text-slate-400">
-                      {new Date(app.created_at).toLocaleDateString()}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center gap-2">
-                        <span
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getStatusBadge(app.status)}`}
-                        >
-                          {app.status.charAt(0).toUpperCase() +
-                            app.status.slice(1)}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <div className="flex items-center justify-end gap-3">
-                        <select
-                          value={app.status}
-                          disabled={updating === app.id}
-                          onChange={(e) =>
-                            handleStatusChange(app.id, e.target.value)
-                          }
-                          className="block w-32 pl-3 pr-8 py-1.5 text-sm border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-200 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 disabled:opacity-50"
-                        >
-                          <option value="pending">Pending</option>
-                          <option value="reviewed">Reviewed</option>
-                          <option value="interview">Interview</option>
-                          <option value="hired">Hired</option>
-                          <option value="rejected">Rejected</option>
-                        </select>
-                        <a
-                          href={app.resumeUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-3 py-1.5 text-sm text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 hover:bg-blue-100 dark:hover:bg-blue-500/20 rounded-md transition-colors"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                          Resume
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+      {loading ? (
+        <div className="flex-1 flex flex-col items-center justify-center">
+          <Loader2 className="w-12 h-12 animate-spin text-[var(--color-bronze)] mb-4" />
+          <p className="text-gray-500 font-heading tracking-widest uppercase text-sm">
+            Loading Applicants...
+          </p>
         </div>
-      </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 pb-8">
+          {filteredApps.length > 0 ? (
+            filteredApps.map((app) => (
+              <div
+                key={app.id}
+                className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full"
+              >
+                <div className="mb-6 border-b border-gray-100 pb-4">
+                  <h4 className="font-bold text-gray-900 text-xl mb-2">
+                    {app.firstName} {app.lastName}
+                  </h4>
+                  <div className="flex items-center text-xs text-gray-500 font-medium">
+                    <Clock className="w-3 h-3 mr-2" />
+                    Applied on {new Date(app.created_at).toLocaleDateString()}
+                  </div>
+                </div>
+
+                <div className="space-y-4 mb-8 flex-grow">
+                  <a
+                    href={`mailto:${app.email}`}
+                    className="flex items-center text-[var(--color-charcoal)] hover:text-[var(--color-bronze)] transition-colors group"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center mr-3 group-hover:bg-orange-50 transition-colors">
+                      <Mail className="w-4 h-4 text-gray-400 group-hover:text-[var(--color-bronze)] transition-colors" />
+                    </div>
+                    <span className="truncate font-medium">{app.email}</span>
+                  </a>
+                  <a
+                    href={`tel:${app.phone}`}
+                    className="flex items-center text-[var(--color-charcoal)] hover:text-[var(--color-bronze)] transition-colors group"
+                  >
+                    <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center mr-3 group-hover:bg-orange-50 transition-colors">
+                      <Phone className="w-4 h-4 text-gray-400 group-hover:text-[var(--color-bronze)] transition-colors" />
+                    </div>
+                    <span className="font-medium">{app.phone}</span>
+                  </a>
+                </div>
+
+                <div className="mt-auto pt-4">
+                  <a
+                    href={`/api/admin/applications/${app.id}/resume`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 w-full py-3 border border-[var(--color-bronze)] bg-[var(--color-bronze)] text-white hover:bg-[var(--color-bronze-light)] hover:border-[var(--color-bronze-light)] rounded-lg text-sm font-heading tracking-widest uppercase transition-colors shadow-sm"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    View Resume / CV
+                  </a>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="col-span-full py-24 flex flex-col items-center justify-center text-center bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl">
+              <p className="text-gray-500 font-heading uppercase tracking-widest text-sm mb-2">
+                No candidates found
+              </p>
+              <p className="text-gray-400 text-sm font-sans">
+                Applications will appear here once submitted.
+              </p>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

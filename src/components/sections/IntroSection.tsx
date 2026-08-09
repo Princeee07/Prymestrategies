@@ -13,11 +13,8 @@ export default function IntroSection() {
           <p className="text-xl md:text-2xl text-[var(--color-charcoal)] font-serif italic leading-relaxed">
             Marketing continues to evolve, but one fundamental principle remains
             constant:{' '}
-            <span className="relative inline-block mx-1">
-              <span className="absolute bottom-1 left-0 w-full h-3 bg-[var(--color-bronze)]/20 -skew-x-12 transform transition-transform group-hover:scale-105"></span>
-              <span className="relative text-[var(--color-bronze)] font-bold tracking-wide">
-                people connect with people.
-              </span>
+            <span className="text-[var(--color-bronze)] underline decoration-[var(--color-bronze)]/30 decoration-1 underline-offset-[6px] hover:decoration-[var(--color-bronze)] transition-colors duration-500 cursor-default">
+              people connect with people.
             </span>
           </p>
         </ScrollReveal>

@@ -7,7 +7,7 @@ import { hashSync } from 'bcryptjs';
 const connectionString = process.env.DATABASE_URL;
 
 if (!connectionString) {
-  console.error('❌ DATABASE_URL is not set in your environment.');
+  console.error(' DATABASE_URL is not set in your environment.');
   process.exit(1);
 }
 
@@ -20,7 +20,7 @@ const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@prymestrategies.com';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Admin@123456';
 
 async function main() {
-  console.log('🌱 Seeding started...\n');
+  console.log('Seeding started...\n');
 
   // ── 1. Seed Admin User ──────────────────────────────────────
   const hashedPassword = hashSync(ADMIN_PASSWORD, 12);
@@ -34,7 +34,7 @@ async function main() {
     },
   });
 
-  console.log(`✅ Admin user seeded: ${admin.email}`);
+  console.log(`Admin user seeded: ${admin.email}`);
 
   // ── 2. Seed sample applications (dev only) ──────────────────
   if (process.env.NODE_ENV !== 'production') {

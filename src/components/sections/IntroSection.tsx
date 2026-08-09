@@ -13,7 +13,7 @@ export default function IntroSection() {
           <p className="text-xl md:text-2xl text-[var(--color-charcoal)] font-serif italic leading-relaxed">
             Marketing continues to evolve, but one fundamental principle remains
             constant:{' '}
-            <span className="text-[var(--color-bronze)] underline decoration-[var(--color-bronze)]/30 decoration-1 underline-offset-[6px] hover:decoration-[var(--color-bronze)] transition-colors duration-500 cursor-default">
+            <span className="text-[var(--color-bronze)] transition-colors duration-500 cursor-default">
               people connect with people.
             </span>
           </p>

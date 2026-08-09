@@ -12,7 +12,13 @@ export default function IntroSection() {
         <ScrollReveal delay={0.2} className="space-y-6">
           <p className="text-xl md:text-2xl text-[var(--color-charcoal)] font-serif italic leading-relaxed">
             Marketing continues to evolve, but one fundamental principle remains
-            constant: people connect with people.
+            constant:{' '}
+            <span className="relative inline-block mx-1">
+              <span className="absolute bottom-1 left-0 w-full h-3 bg-[var(--color-bronze)]/20 -skew-x-12 transform transition-transform group-hover:scale-105"></span>
+              <span className="relative text-[var(--color-bronze)] font-bold tracking-wide">
+                people connect with people.
+              </span>
+            </span>
           </p>
         </ScrollReveal>
         <ScrollReveal delay={0.3} className="mt-8">

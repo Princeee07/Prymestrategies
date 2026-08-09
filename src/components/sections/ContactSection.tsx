@@ -115,9 +115,9 @@ export default function ContactSection() {
                 {
                   icon: Mail,
                   title: 'Email',
-                  content: 'prymesteategiesinc@gmail.com',
+                  content: 'prymestrategiesinc@gmail.com',
                   isLink: true,
-                  href: 'mailto:prymesteategiesinc@gmail.com',
+                  href: 'mailto:prymestrategiesinc@gmail.com',
                 },
                 {
                   icon: Phone,

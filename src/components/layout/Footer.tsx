@@ -57,13 +57,13 @@ export default function Footer() {
               Contact
             </h3>
             <ul className="space-y-4 text-sm">
-              <li>midtown Manhattan</li>
+              <li>Midtown Manhattan</li>
               <li>
                 <a
-                  href="mailto:prymesteategiesinc@gmail.com"
+                  href="mailto:prymestrategiesinc@gmail.com"
                   className="hover:text-[var(--color-bronze)] transition-colors"
                 >
-                  prymesteategiesinc@gmail.com
+                  prymestrategiesinc@gmail.com
                 </a>
               </li>
               <li>+1 (607) 413-9352</li>

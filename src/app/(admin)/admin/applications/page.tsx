@@ -17,7 +17,6 @@ type Application = {
   lastName: string;
   email: string;
   phone: string;
-  resumeUrl: string;
   status: string;
   created_at: string;
 };
@@ -147,7 +146,7 @@ export default function ApplicationsPage() {
 
                 <div className="mt-auto pt-4">
                   <a
-                    href={app.resumeUrl}
+                    href={`/api/admin/applications/${app.id}/resume`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 w-full py-3 border border-[var(--color-bronze)] bg-[var(--color-bronze)] text-white hover:bg-[var(--color-bronze-light)] hover:border-[var(--color-bronze-light)] rounded-lg text-sm font-heading tracking-widest uppercase transition-colors shadow-sm"

@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/server/db';
-import fs from 'fs';
-import path from 'path';
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
@@ -25,28 +23,10 @@ export async function POST(request: Request) {
       );
     }
 
-    // Convert file to buffer
+    // Convert file to base64
     const bytes = await resume.arrayBuffer();
     const buffer = Buffer.from(bytes);
-
-    // Save locally
-    const fileName = `${Date.now()}-${resume.name.replace(/\s+/g, '-')}`;
-    const filePath = path.join(
-      process.cwd(),
-      'public',
-      'uploads',
-      'resumes',
-      fileName
-    );
-
-    // Ensure directory exists
-    const dir = path.dirname(filePath);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
-
-    fs.writeFileSync(filePath, buffer);
-    const resumeUrl = `/uploads/resumes/${fileName}`;
+    const base64Resume = buffer.toString('base64');
 
     // Save to database
     await db.application.create({
@@ -55,11 +35,11 @@ export async function POST(request: Request) {
         lastName,
         phone,
         email,
-        resumeUrl,
+        resumeUrl: base64Resume, // Store base64 in resumeUrl field
       },
     });
 
-    return NextResponse.json({ success: true, url: resumeUrl });
+    return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Application submission error:', error);
     return NextResponse.json(

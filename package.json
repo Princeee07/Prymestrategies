@@ -16,8 +16,7 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,css,json}\"",
     "type-check": "tsc --noEmit",
     "postinstall": "prisma generate",
-    "prepare": "husky",
-    "postbuild": "next-sitemap"
+    "prepare": "husky"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.5.7",

@@ -1,8 +1,7 @@
 export const SITE_NAME = 'PrymeStrategies';
 export const SITE_DESCRIPTION =
   'Premium face-to-face marketing strategies that drive results. Book a consultation today.';
-export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || 'https://prymestrategies.com';
+export const SITE_URL = 'https://www.prymestrategies.com';
 
 export const NAV_LINKS = [
   { label: 'Home', href: '/' },

@@ -72,13 +72,17 @@ export default function MissionSection() {
             <h3 className="text-2xl font-heading tracking-[0.2em] uppercase text-white mb-6">
               Our Vision
             </h3>
-            <p className="text-gray-300 text-lg leading-relaxed font-sans">
-              To establish PRYME STRATEGIES as a trusted industry leader in
-              direct marketing and customer acquisition—recognized for the
-              uncompromising quality of our representation, the depth of our
-              leadership, and the sustainable results we deliver for our
-              partners.
-            </p>
+            <div className="text-gray-300 text-lg leading-relaxed font-sans space-y-4">
+              <p>
+                To create a culture where ambition becomes leadership and
+                leadership creates opportunity.
+              </p>
+              <p>
+                Our vision is to develop individuals into confident leaders,
+                empower them to grow into business ownership, and create lasting
+                opportunities for the people and communities we impact.
+              </p>
+            </div>
           </motion.div>
         </div>
       </motion.div>

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 
 export default function AboutSection() {
@@ -13,10 +14,11 @@ export default function AboutSection() {
           {/* Left Column: Image Composition */}
           <ScrollReveal direction="right" className="relative hidden lg:block">
             <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl z-10">
-              <img
+              <Image
                 src="/about-hero.jpg"
                 alt="PRYME STRATEGIES Team"
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-[var(--color-charcoal)]/10 mix-blend-multiply"></div>
             </div>
@@ -109,10 +111,11 @@ export default function AboutSection() {
               className="pt-4 lg:hidden"
             >
               <div className="relative w-full h-64 rounded-2xl overflow-hidden shadow-lg mt-8">
-                <img
+                <Image
                   src="/about-hero.jpg"
                   alt="PRYME STRATEGIES Team"
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
             </ScrollReveal>

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import HeroSection from '@/components/sections/HeroSection';
 import IntroSection from '@/components/sections/IntroSection';
 import AboutSection from '@/components/sections/AboutSection';
@@ -60,10 +61,11 @@ export default function HomePage() {
                 <ScrollReveal key={i} delay={0.2 * i}>
                   <div className="relative aspect-video overflow-hidden group shadow-2xl flex flex-col items-center justify-center text-center rounded-xl">
                     <div className="absolute inset-0 bg-black/60 z-10 group-hover:bg-black/30 transition-all duration-700"></div>
-                    <img
+                    <Image
                       src={item.src}
                       alt={item.title}
-                      className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 z-0"
+                      fill
+                      className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000 z-0"
                     />
                     <div className="relative z-20 p-6 transform translate-y-2 group-hover:translate-y-0 transition-all duration-700">
                       <h3 className="text-2xl md:text-3xl font-heading font-light tracking-[0.2em] uppercase text-white mb-3 drop-shadow-lg">

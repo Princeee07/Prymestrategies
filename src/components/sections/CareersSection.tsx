@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { ScrollReveal } from '@/components/ui/ScrollReveal';
 import Link from 'next/link';
 
@@ -10,10 +11,11 @@ export default function CareersSection() {
       className="py-24 bg-[var(--color-charcoal)] relative overflow-hidden"
     >
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <img
+        <Image
           src="/careers-hero.jpg"
           alt="Careers"
-          className="w-full h-full object-cover grayscale opacity-20 object-center animate-slow-zoom"
+          fill
+          className="object-cover grayscale opacity-20 object-center animate-slow-zoom"
         />
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -71,10 +73,11 @@ export default function CareersSection() {
           <div className="w-full lg:w-1/2">
             <ScrollReveal direction="left" delay={0.3}>
               <div className="aspect-[4/5] bg-white/5 border border-white/10 p-4 rounded-xl shadow-2xl relative">
-                <img
+                <Image
                   src="/68630944603ad773cc39b1c1_948017385_PS53099-5.jpg"
                   alt="Careers at PRYME STRATEGIES"
-                  className="w-full h-full object-cover rounded-lg grayscale hover:grayscale-0 transition-all duration-700"
+                  fill
+                  className="object-cover rounded-lg grayscale hover:grayscale-0 transition-all duration-700"
                 />
               </div>
             </ScrollReveal>

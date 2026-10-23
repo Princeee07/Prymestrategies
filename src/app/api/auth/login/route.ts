@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const isValidPassword = bcrypt.compareSync(password, admin.password);
+    const isValidPassword = await bcrypt.compare(password, admin.password);
 
     if (!isValidPassword) {
       return NextResponse.json(
